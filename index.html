@@ -3,92 +3,659 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For Someone Special ❤️</title>
 
 <style>
+
+/* ---------- GENERAL ---------- */
+
 body{
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:white;
+margin:0;
+font-family: Georgia, serif;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+color:white;
+text-align:center;
 }
 
-.card{
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  padding:40px;
-  border-radius:20px;
-  width:90%;
-  max-width:420px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+.hidden{
+display:none !important;
 }
 
-h1{
-  margin-top:0;
+/* ---------- LOADING SCREEN ---------- */
+
+#loadingScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#1b0f13;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+z-index:1000;
 }
 
-button{
-  margin-top:20px;
-  padding:12px 20px;
-  border:none;
-  border-radius:10px;
-  background:white;
-  color:#ff5c8a;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
+/* ---------- LETTER POPUP ---------- */
+
+#letterModal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:900;
 }
 
-button:hover{
-  transform:scale(1.05);
+#letterBox{
+background:#fff5e6;
+color:#3b1f1f;
+padding:40px;
+max-width:500px;
+border-radius:10px;
+position:relative;
 }
 
-#message{
-  margin-top:20px;
-  font-size:18px;
-  min-height:40px;
+#closeLetter{
+position:absolute;
+top:10px;
+right:15px;
+cursor:pointer;
+font-size:22px;
+}
+
+/* ---------- MAIN PAGE ---------- */
+
+#mainPage{
+padding:40px;
+}
+
+.sectionButton{
+padding:15px 25px;
+margin:10px;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+background:white;
+color:#c94f7c;
+}
+
+/* ---------- COUNTDOWN ---------- */
+
+#countdown{
+font-size:30px;
+margin:30px 0;
+}
+
+/* ---------- LOVE ORB ---------- */
+
+#loveOrb{
+
+width:260px;
+height:260px;
+margin:50px auto;
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+
+font-size:18px;
+padding:30px;
+
+cursor:pointer;
+position:relative;
+overflow:hidden;
+
+background:radial-gradient(circle at 30% 30%, #ff9ac6, #ff3f8e);
+
+box-shadow:
+0 0 30px rgba(255,120,170,0.8),
+0 0 60px rgba(255,120,170,0.6),
+inset 0 0 40px rgba(255,255,255,0.4);
+
+transition:transform .3s;
+
+}
+
+#loveOrb:hover{
+transform:scale(1.05);
+}
+
+/* orb glow pulse */
+
+.orbPulse{
+animation:orbPulse 1s ease;
+}
+
+@keyframes orbPulse{
+
+0%{transform:scale(1);}
+40%{transform:scale(1.2);}
+100%{transform:scale(1);}
+
+}
+
+/* magical shimmer */
+
+#loveOrb::before{
+
+content:"";
+position:absolute;
+width:400px;
+height:400px;
+
+background:radial-gradient(circle,rgba(255,255,255,0.4),transparent 60%);
+animation:rotateOrb 10s linear infinite;
+
+}
+
+@keyframes rotateOrb{
+
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+
+}
+
+#orbMessage{
+position:relative;
+z-index:2;
+font-weight:bold;
+}
+
+#loveOrb:hover{
+transform:scale(1.1);
+}
+
+/* orb animation */
+
+.orbPulse{
+animation:orbPulse 0.8s ease;
+}
+
+@keyframes orbPulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+
+}
+
+#loveMessage{
+margin-top:20px;
+font-size:20px;
+}
+
+/* ---------- PHOTO GRID ---------- */
+
+.photoGrid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+.photoGrid img{
+width:150px;
+height:150px;
+object-fit:cover;
+cursor:pointer;
+transition:0.3s;
+}
+
+.photoGrid img:hover{
+transform:scale(1.1);
+}
+
+/* ---------- PHOTO VIEWER ---------- */
+
+#photoViewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:950;
+}
+
+#photoViewer img{
+max-width:70%;
+max-height:70%;
+}
+
+#musicToggle{
+
+position:fixed;
+top:20px;
+right:20px;
+
+font-size:28px;
+cursor:pointer;
+
+background:rgba(0,0,0,0.4);
+padding:10px 14px;
+
+border-radius:50%;
+z-index:2000;
+
+}
+
+#togetherText{
+font-size:22px;
+margin-top:10px;
+font-style:italic;
+letter-spacing:1px;
+}
+
+/* ---------- FLOATING HEARTS ---------- */
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+z-index:0;
+}
+
+.heart{
+position:absolute;
+color:rgba(255,255,255,0.6);
+font-size:20px;
+animation:float 8s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh) scale(0.5);
+opacity:0;
+}
+50%{
+opacity:1;
+}
+100%{
+transform:translateY(-10vh) scale(1.2);
+opacity:0;
+}
 }
 </style>
+
 </head>
+
 
 <body>
 
-<div class="card">
-  <h1>Hi ❤️</h1>
+<!-- BGM -->
+ <div id="musicToggle">🔊</div>
 
-  <p>
-    I know we're far apart right now, so I made a tiny place on the internet
-    just for you.
-  </p>
+<audio id="bgMusic" loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
 
-  <button onclick="showMessage()">Click me</button>
+<div class="hearts"></div>
 
-  <div id="message"></div>
+<!-- LOADING SCREEN -->
 
-  <p style="margin-top:30px;font-size:14px;opacity:0.8;">
-    (more coming soon... I'm still building this 😊)
-  </p>
+<div id="loadingScreen">
+Cooking up a very personalized website for a very special someone ❤️
 </div>
 
+
+<!-- LETTER POPUP -->
+
+<div id="letterModal" class="hidden">
+
+<div id="letterBox">
+
+<span id="closeLetter">✕</span>
+
+<p>
+Dear Harley,<br><br>
+
+We have been together just over 6 months now, and every day  feels like a beautiful adventure with you<br><br>
+
+I know we have had our ups and downs, but when it comes to you whatever I do dosen't feel like work I have to put in, 
+but rather a task that I am exiced to do just to see that smile on your face. Thank you for showing me what love 
+feels like when its mutual, and being the most amazing and supporting girlfriend and best friend I could ever ask for. 
+Its funny that its only been a week since we've been apart but it already feels like forever, I miss you, I miss waking 
+up next to you, i miss the way you smell, I miss seeing that radiant smile in person or the way you pout adorably when something
+upsets you a little. Most of all i miss those divine Hazel eyes that seem to contain the entire universe. 
+I know that i can be extra sometimes caught up in my own head, but even though we argue about it here and there 
+deep down i know you care for me and try to understand me deeply. seeing and hearing you makes my whole day, and I just cant seem 
+to get enough of you. I love you so much Harley, and I only promise to love you even more. 
+
+I made a little website for you, consider it our small 6 month anniversary surprise, I miss you soo much my love and I can't 
+wait to see you again, I hope you like it and that it puts a smile on your face just like you do to mine every day. <br>
+
+Your Love Always, <br>
+Anush <br>
+
+</p>
+
+</div>
+</div>
+
+
+<!-- MAIN PAGE -->
+
+<div id="mainPage" class="hidden">
+
+<h1>I LOVE YOU AND MISS YOU SO MUCH ❤️</h1>
+
+<div id="togetherText">We have been together for</div>
+
+<div id="countdown">
+Loading time together...
+</div>
+
+<button class="sectionButton" onclick="showLove()">Magic Love Orb</button>
+<button class="sectionButton" onclick="showPhotos()">Our Memories</button>
+
+
+<!-- LOVE SECTION -->
+
+<div id="loveSection" class="hidden">
+
+<h2>The Magic Love Orb</h2>
+
+<div id="loveOrb" onclick="generateLove()">
+<div id="orbMessage">Tap the orb</div>
+</div>
+
+</div>
+
+
+<!-- PHOTO PAGE -->
+
+<div id="photoPage" class="hidden">
+
+<h2>Us ❤️</h2>
+
+<div class="photoGrid">
+
+<!-- PUT YOUR PHOTOS IN /photos FOLDER -->
+
+<img src="photos/photo1.jpg">
+<img src="photos/photo2.jpg">
+<img src="photos/photo3.jpg">
+<img src="photos/photo4.jpg">
+<img src="photos/photo5.jpg">
+<img src="photos/photo6.jpg">
+<img src="photos/photo7.jpg">
+<img src="photos/photo8.jpg">
+<img src="photos/photo9.jpg">
+<img src="photos/photo10.jpg">
+<img src="photos/photo11.jpg">
+<img src="photos/photo12.jpg">
+<img src="photos/photo13.jpg">
+<img src="photos/photo14.jpg">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PHOTO VIEWER -->
+
+<div id="photoViewer" class="hidden">
+<img id="viewerImg">
+</div>
+
+
+
 <script>
-const messages = [
-  "I miss you.",
-  "You're my favorite person.",
-  "I can't wait to see you again.",
-  "You make my days better.",
-  "I'm really lucky to have you."
+
+/* ---------- LOADING SCREEN ---------- */
+
+setTimeout(() => {
+
+document.getElementById("loadingScreen").style.display="none";
+document.getElementById("letterModal").classList.remove("hidden");
+
+},3000);
+
+
+
+/* ---------- LETTER CLOSE ---------- */
+
+const letterModal = document.getElementById("letterModal");
+const closeBtn = document.getElementById("closeLetter");
+
+closeBtn.onclick = closeLetter;
+
+function closeLetter(){
+
+letterModal.classList.add("hidden");
+document.getElementById("mainPage").classList.remove("hidden");
+
+const music = document.getElementById("bgMusic");
+music.volume = 0.4;
+music.play();
+
+}
+
+/* close if clicking outside the letter */
+
+letterModal.onclick = function(e){
+
+if(e.target === letterModal){
+closeLetter();
+}
+
+};
+
+const musicToggle=document.getElementById("musicToggle");
+const music=document.getElementById("bgMusic");
+
+let musicPlaying=true;
+
+musicToggle.onclick=function(){
+
+if(musicPlaying){
+music.pause();
+musicToggle.innerText="🔇";
+}else{
+music.play();
+musicToggle.innerText="🔊";
+}
+
+musicPlaying=!musicPlaying;
+
+};
+
+/* ---------- FLOATING HEART GENERATOR ---------- */
+
+function createHeart(){
+
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+heart.style.animationDuration=(6+Math.random()*6)+"s";
+
+document.querySelector(".hearts").appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},10000);
+
+}
+
+setInterval(createHeart,500);
+
+/* ---------- COUNTDOWN TIMER ---------- */
+
+const startDate = new Date("2025-08-29");
+
+function updateCountdown(){
+
+const now = new Date();
+const diff = now - startDate;
+
+const seconds = Math.floor(diff/1000)%60;
+const minutes = Math.floor(diff/60000)%60;
+const hours = Math.floor(diff/3600000)%24;
+const days = Math.floor(diff/86400000);
+
+document.getElementById("countdown").innerText =
+days+" days : "+
+hours+" hours : "+
+minutes+" minutes : "+
+seconds+" seconds together ❤️";
+
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+
+
+/* ---------- LOVE MESSAGE SYSTEM ---------- */
+
+const loveMessages = [
+
+"I Love you",
+"I love your smile",
+"I love your eyes",
+"I love your funny jokes",
+"I love that u lowkey a stoner like me lol",
+"I love how you care for me",
+"I love how you try to understand me even when i can be extra sometimes",
+"I love how you support me in everything I do",
+"I love how you make me feel like the luckiest person alive",
+"I love how you make me want to be a better person",
+"I love that your so strong and independent but also so soft and caring",
+"I love how you make me laugh even on my worst days",
+"I love how you look at me with those beautiful hazel eyes",
+"I love how you smell",
+"Bonus - I love your incredibly sexy body",
+"I love your hair",
+"I love all your kisss",
+"I love our little bunny !",
+"I love our cuddle times",
+"I love our deep conversations",
+"I love waking up next to you",
+"I love falling asleep with you",
+"I love giving you massages and backscratches",
+"I love when you play with my hair and beard",
+"I love when you call me yours",
+"I love your cute voice with your braces",
+"I love your cute little nose",
+"I love your crystal collection",
+"I love going on adventures with you",
+"Bonus - I love your phatt ass, hehe",
+"I love the little treats you bring me",
+"I love when u try speaking in Tamil",
+"I love your voice",
+"I love u with ur jewels and trinkets",
+"I love how passionate you are about ur shows, hehe",
+"I love dem feet",
+"I love every inch of your body",
+"I love your confidence but also ur indecisiveness",
+"I love your sense of humor",
+"I love all your music sense",
+"Bonus - I love you above and beyond"
+
 ];
 
-function showMessage(){
-  const msg = messages[Math.floor(Math.random()*messages.length)];
-  document.getElementById("message").innerText = msg;
+let usedMessages=[];
+
+function generateLove(){
+
+const orb=document.getElementById("loveOrb");
+const message=document.getElementById("orbMessage");
+
+orb.classList.add("orbPulse");
+
+setTimeout(()=>{
+orb.classList.remove("orbPulse");
+},1000);
+
+/* confetti */
+
+confetti({
+particleCount:150,
+spread:80,
+origin:{y:0.6}
+});
+
+/* message system */
+
+if(usedMessages.length===loveMessages.length){
+usedMessages=[];
 }
+
+let available=loveMessages.filter(x=>!usedMessages.includes(x));
+
+let choice=available[Math.floor(Math.random()*available.length)];
+
+usedMessages.push(choice);
+
+message.innerText=choice;
+
+}
+
+
+
+/* ---------- NAVIGATION ---------- */
+
+function showLove(){
+
+document.getElementById("loveSection").classList.remove("hidden");
+document.getElementById("photoPage").classList.add("hidden");
+
+}
+
+function showPhotos(){
+
+document.getElementById("photoPage").classList.remove("hidden");
+document.getElementById("loveSection").classList.add("hidden");
+
+}
+
+
+
+/* ---------- PHOTO VIEWER ---------- */
+
+const viewer = document.getElementById("photoViewer");
+const viewerImg = document.getElementById("viewerImg");
+
+document.querySelectorAll(".photoGrid img").forEach(img=>{
+
+img.onclick=()=>{
+
+viewer.classList.remove("hidden");
+viewerImg.src = img.src;
+
+};
+
+});
+
+viewer.onclick = function(){
+
+viewer.classList.add("hidden");
+
+};
+
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
